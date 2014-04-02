@@ -1,5 +1,6 @@
-PATH
-  remote: ~/projects/Gems/ruby_utils
+GIT
+  remote: git://github.com/jordansexton/ruby_utils.git
+  revision: bdea9ac2074a7ce14803597f28335d24eb3a5c0a
   specs:
     ruby_utils (0.1.0.alpha)
 
