@@ -2,7 +2,7 @@ require 'ruby_utils/abstract_class'
 
 module HasSecureAttribute
   class AbstractCipher
-    include RubyUtils::AbstractClass
+    extend RubyUtils::AbstractClass
 
     def digest (secret)
       raise NotImplementedError,
