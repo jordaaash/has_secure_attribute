@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/jordansexton/ruby_utils.git
-  revision: bdea9ac2074a7ce14803597f28335d24eb3a5c0a
+  revision: f05ef06245f3bc8516e8d88ad64b9e03a4008fab
   specs:
     ruby_utils (0.1.0.alpha)
 
