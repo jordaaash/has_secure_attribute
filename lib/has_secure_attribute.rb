@@ -30,7 +30,7 @@ module HasSecureAttribute
     define_method :"#{attribute}=" do |value|
       digest = value.blank? ? nil : cipher.digest(value)
       public_send :"#{column}=", digest
-      instance_variable_set(:"@#{attribute}", value)
+      instance_variable_set :"@#{attribute}", value
     end
 
     define_method :authenticate do |value, validation_attribute = nil|
@@ -53,7 +53,7 @@ module HasSecureAttribute
 
     define_method :authenticate_update do |attributes|
       attributes = attributes.dup
-      value      = attributes.delete(attribute)
+      value      = attributes.delete attribute
       authenticate(value, attribute) && update(attributes)
     end
 
