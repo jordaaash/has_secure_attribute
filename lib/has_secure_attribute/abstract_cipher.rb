@@ -1,8 +1,9 @@
 require 'ruby_utils/abstract_class'
+require 'active_support/core_ext/object/blank'
 
 module HasSecureAttribute
   class AbstractCipher
-    extend RubyUtils::AbstractClass
+    extend AbstractClass
 
     def digest (secret)
       raise NotImplementedError,
@@ -17,7 +18,7 @@ module HasSecureAttribute
     private
 
     # Constant-time comparison algorithm to prevent timing attacks
-    # Taken from ActiveSupport::MessageVerifier#secure_compare
+    # Derived from ActiveSupport::MessageVerifier#secure_compare
     def compare (a, b)
       return false if a.blank? || b.blank? || a.bytesize != b.bytesize
 

@@ -1,4 +1,4 @@
-require 'has_secure_attribute/abstract_cipher'
+require 'has_secure_attribute'
 require 'scrypt'
 
 module HasSecureAttribute
@@ -7,11 +7,11 @@ module HasSecureAttribute
 
     def initialize (options = {})
       @options = {
-        :key_len     => 256,  # bytes,          16..512
-        :salt_size   => 32,   # bytes,           8..32
-        :max_time    => 0.25, # seconds,         0..Infinity?
-        :max_mem     => 0,    # bytes, (1024*1024)..Infinity?
-        :max_memfrac => 0     # fraction,        0..0.5
+        key_len:     256,  # bytes,          16..512
+        salt_size:   32,   # bytes,           8..32
+        max_time:    0.25, # seconds,         0..Infinity?
+        max_mem:     0,    # bytes, (1024*1024)..Infinity?
+        max_memfrac: 0     # fraction,        0..0.5
       }.merge!(options).freeze
     end
 

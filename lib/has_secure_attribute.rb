@@ -1,22 +1,19 @@
 require 'has_secure_attribute/version'
-require 'active_support/dependencies/autoload'
 require 'active_record/base'
 
 module HasSecureAttribute
-  extend ActiveSupport::Autoload
-
-  autoload :AbstractCipher
-  autoload :BCryptCipher, 'has_secure_attribute/bcrypt_cipher'
-  autoload :SCryptCipher, 'has_secure_attribute/scrypt_cipher'
+  autoload :AbstractCipher, 'has_secure_attribute/abstract_cipher'
+  autoload :BCryptCipher,   'has_secure_attribute/bcrypt_cipher'
+  autoload :SCryptCipher,   'has_secure_attribute/scrypt_cipher'
 
   def has_secure_attribute (attribute, options = {})
     options           = {
-      :validations       => false,
-      :confirmation      => false,
-      :column            => nil,
-      :cipher            => nil,
-      :current_attribute => nil,
-      :new_attribute     => nil
+      validations:       false,
+      confirmation:      false,
+      column:            nil,
+      cipher:            nil,
+      current_attribute: nil,
+      new_attribute:     nil
     }.merge!(options)
     column            = options[:column] || :"#{attribute}_digest"
     cipher            = options[:cipher] || SCryptCipher.new
@@ -75,18 +72,18 @@ module HasSecureAttribute
 
     if validations
       validates column,
-                :presence => true
+                presence: true
       validates attribute,
-                :presence => {
-                  :on => :create
+                presence: {
+                  on: :create
                 }
       validates current_attribute,
-                :presence => {
-                  :on => attribute_change
+                presence: {
+                  on: attribute_change
                 }
       validates new_attribute,
-                :presence => {
-                  :on => attribute_change
+                presence: {
+                  on: attribute_change
                 }
     end
 
@@ -97,28 +94,28 @@ module HasSecureAttribute
 
       if validations
         validates attribute,
-                  :confirmation => {
-                    :on => :create,
-                    :if => -> { public_send(attribute).present? }
+                  confirmation: {
+                    on: :create,
+                    if: -> { public_send(attribute).present? }
                   }
         validates attribute_confirmation,
-                  :presence => {
-                    :on => :create,
-                    :if => -> { public_send(attribute).present? }
+                  presence: {
+                    on: :create,
+                    if: -> { public_send(attribute).present? }
                   }
         validates new_attribute,
-                  :confirmation => {
-                    :on => attribute_change,
-                    :if => -> { public_send(new_attribute).present? }
+                  confirmation: {
+                    on: attribute_change,
+                    if: -> { public_send(new_attribute).present? }
                   }
         validates new_attribute_confirmation,
-                  :presence => {
-                    :on => attribute_change,
-                    :if => -> { public_send(new_attribute).present? }
+                  presence: {
+                    on: attribute_change,
+                    if: -> { public_send(new_attribute).present? }
                   }
       end
     end
   end
 end
 
-ActiveRecord::Base.send :extend, HasSecureAttribute
+ActiveRecord::Base.send(:extend, HasSecureAttribute)

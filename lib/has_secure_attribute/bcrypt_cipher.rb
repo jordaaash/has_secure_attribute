@@ -1,4 +1,4 @@
-require 'has_secure_attribute/abstract_cipher'
+require 'has_secure_attribute'
 require 'bcrypt'
 
 module HasSecureAttribute
@@ -7,7 +7,7 @@ module HasSecureAttribute
 
     def initialize (options = {})
       @options = {
-        :cost => 12 # 4..31
+        cost: 12 # 4..31
       }.merge!(options).freeze
     end
 
